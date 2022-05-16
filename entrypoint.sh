@@ -38,7 +38,7 @@ echo "## Detecting current version"
 OLD_VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))  || exit 0
 echo "## $OLD_VERSION"
 
-NEW_VERSION=$(cat cmd/root.go | grep "<---VERSION--->" | grep -oP "v\d*\.\d*\.\d*")
+NEW_VERSION=$(cat cmd/root.go main.go | grep "<---VERSION--->" | grep -oP "v\d*\.\d*\.\d*")
 
 echo "## Version in commit detected: $NEW_VERSION!"
 
