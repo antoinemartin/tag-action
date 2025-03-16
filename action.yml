@@ -1,6 +1,20 @@
 name: "PTerm Automatic Releases"
-description: "Creates a new git tag when the version in cmd/root.go changed."
-author: "MarvinJWendt"
+description: "Creates a new git tag when the version in cmd/root.go or pkg/cmd/root.go changed."
+author: "antoinemartin"
+inputs:
+  user_email:
+    description: "User email"
+    required: true
+    default: "antoine@mrtn.fr"
+  user_name:
+    description: "User name"
+    required: true
+    default: "Antoine Martin"
+  paths:
+    description: "Paths to watch for version changes"
+    required: true
+    default: "cmd/root.go pkg/cmd/root.go main.go"
+
 branding:
   icon: award
   color: orange

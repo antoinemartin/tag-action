@@ -24,8 +24,8 @@ echo "### Branch: $BRANCH (ref: $GITHUB_REF )"
 git checkout $BRANCH
 
 echo "## Login into git..."
-git config --global user.email "git@marvinjwendt.com"
-git config --global user.name "MarvinJWendt"
+git config --global user.email "$INPUT_USER_EMAIL"
+git config --global user.name "$INPUT_USER_NAME"
 
 echo "## Ignore workflow files (we may not touch them)"
 git update-index --assume-unchanged .github/workflows/*
@@ -38,7 +38,7 @@ echo "## Detecting current version"
 OLD_VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))  || exit 0
 echo "## $OLD_VERSION"
 
-NEW_VERSION=$(cat cmd/root.go main.go | grep "<---VERSION--->" | grep -oP "v\d*\.\d*\.\d*")
+NEW_VERSION=$(cat $INPUT_PATHS | grep "<---VERSION--->" | grep -oP "v\d*\.\d*\.\d*")
 
 echo "## Version in commit detected: $NEW_VERSION!"
 
@@ -51,7 +51,7 @@ else
 
   echo "## Staging changes..."
   git add .
-  echo "## Commiting files..."
+  echo "## Committing files..."
   git commit -m "ci: release new version" || true
   echo "## Pushing to $BRANCH"
   git push -u origin $BRANCH --tags
